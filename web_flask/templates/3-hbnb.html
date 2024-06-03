@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../static/styles/4-common.css?cache_id={{ cache_id }}">
+    <link rel="stylesheet" type="text/css" href="../static/styles/3-header.css?cache_id={{ cache_id }}">
+    <link rel="stylesheet" type="text/css" href="../static/styles/3-footer.css?cache_id={{ cache_id }}">
+    <link rel="stylesheet" type="text/css" href="../static/styles/6-filters.css?cache_id={{ cache_id }}">
+    <link type="text/css" rel="stylesheet" href="../static/styles/8-places.css?cache_id={{ cache_id }}">
+    <link rel="icon" href="../static/images/icon.png?cache_id={{ cache_id }}">
+    <title>HBnB</title>
+    <!-- Import JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Import JavaScript -->
+    <script src="../static/scripts/3-hbnb.js?cache_id={{ cache_id }}"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        #api_status {
+            position: absolute;
+            top: 50%;
+            right: 30px;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #cccccc;
+            text-align: center;
+            line-height: 40px;
+        }
+
+        #api_status.available {
+            background-color: #ff545f;
+        }
+
+        .logo {
+            background-image: url('../static/images/logo.png');
+            width: 200px;
+            height: 50px;
+            background-size: cover;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .filters {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .locations, .amenities {
+            flex: 0 0 30%;
+        }
+
+        .locations h3, .amenities h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .popover {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .popover ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .popover li {
+            margin-bottom: 5px;
+        }
+
+        .popover input[type="checkbox"] {
+            margin-right: 5px;
+            transform: translateY(2px);
+        }
+
+        .places {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: 20px;
+        }
+
+        .places article {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .places article h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .places article .price_by_night {
+            font-size: 16px;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        .places article .information div {
+            margin-bottom: 5px;
+        }
+
+        .user {
+            margin-top: 10px;
+        }
+
+        .footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="logo"></div>
+    <div id="api_status"></div>
+</header>
+<div class="container">
+    <section class="filters">
+        <div class="locations">
+            <h3>States</h3>
+            <div class="popover">
+                <ul>
+                    {% for state in states %}
+                    <li>
+                        <h2>{{ state[0].name }}:</h2>
+                        <ul>
+                            {% for city in state[1] %}
+                            <li>{{ city.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="amenities">
+            <h3>Amenities</h3>
+            <div class="popover">
+                <ul>
+                    {% for amenity in amenities %}
+                    <li>
+                        <input type="checkbox" data-id="{{ amenity.id }}" data-name="{{ amenity.name }}">
+                        <label>{{ amenity.name }}</label>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <button type="button">Search</button>
+    </section>
+    <div class="placesh1"><h1>Places</h1></div>
+    <section class="places">
+        <!-- Places will be dynamically added here -->
+    </section>
+</div>
+</body>
+</html>
